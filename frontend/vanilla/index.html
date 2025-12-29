@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Billing Address – Copy & View (PBA CSV)</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="pba-container">
+    <!-- Header -->
+    <header class="pba-header">
+      <h1>Payment Billing Address & Details</h1>
+      <p class="subtitle">Secure copy & export utility</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pba-main">
+      <!-- Error Display -->
+      <div id="errorContainer" class="error-container hidden"></div>
+
+      <!-- Success Display -->
+      <div id="successContainer" class="success-container hidden"></div>
+
+      <!-- Loading State -->
+      <div id="loadingContainer" class="loading-container hidden">
+        <div class="spinner"></div>
+        <p>Processing your request...</p>
+      </div>
+
+      <!-- Billing Address Panel -->
+      <section class="pba-section" id="addressSection">
+        <h2>Billing Address</h2>
+        
+        <div class="fields-grid">
+          <!-- Apartment/Unit -->
+          <div class="field-group">
+            <label>Apartment/Unit</label>
+            <div class="field-wrapper">
+              <input type="text" id="apt_unit" class="field-input" readonly>
+              <button class="copy-btn" data-field="apt_unit" title="Copy to clipboard">
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Address Line 1 -->
+          <div class="field-group">
+            <label>Address Line 1</label>
+            <div class="field-wrapper">
+              <input type="text" id="address_line_1" class="field-input" readonly>
+              <button class="copy-btn" data-field="address_line_1" title="Copy to clipboard">
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Address Line 2 -->
+          <div class="field-group">
+            <label>Address Line 2</label>
+            <div class="field-wrapper">
+              <input type="text" id="address_line_2" class="field-input" readonly>
+              <button class="copy-btn" data-field="address_line_2" title="Copy to clipboard">
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Street -->
+          <div class="field-group">
+            <label>Street</label>
+            <div class="field-wrapper">
+              <input type="text" id="street" class="field-input" readonly>
+              <button class="copy-btn" data-field="street" title="Copy to clipboard">
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- City -->
+          <div class="field-group">
+            <label>City</label>
+            <div class="field-wrapper">
+              <input type="text" id="city" class="field-input" readonly>
+              <button class="copy-btn" data-field="city" title="Copy to clipboard">
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- State/Province -->
+          <div class="field-group">
+            <label>State/Province</label>
+            <div class="field-wrapper">
+              <input type="text" id="state_province" class="field-input" readonly>
+              <button class="copy-btn" data-field="state_province" title="Copy to clipboard">
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Country -->
+          <div class="field-group">
+            <label>Country</label>
+            <div class="field-wrapper">
+              <input type="text" id="country" class="field-input" readonly>
+              <button class="copy-btn" data-field="country" title="Copy to clipboard">
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Postal Code -->
+          <div class="field-group">
+            <label>Postal Code</label>
+            <div class="field-wrapper">
+              <input type="text" id="postal_code" class="field-input" readonly>
+              <button class="copy-btn" data-field="postal_code" title="Copy to clipboard">
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Card Details Panel -->
+      <section class="pba-section">
+        <h2>Card Details</h2>
+
+        <div class="fields-grid">
+          <!-- Card Number -->
+          <div class="field-group">
+            <label>Card Number</label>
+            <div class="field-wrapper">
+              <input type="text" id="card_number" class="field-input" readonly>
+              <button class="copy-btn" data-field="card_number" title="Copy to clipboard">
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Expiry Date -->
+          <div class="field-group">
+            <label>Expiry Date</label>
+            <div class="field-wrapper">
+              <input type="text" id="expiry_date" class="field-input" readonly>
+              <button class="copy-btn" data-field="expiry_date" title="Copy to clipboard">
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- CVV -->
+          <div class="field-group">
+            <label>CVV (Not Exported)</label>
+            <div class="field-wrapper">
+              <input type="password" id="cvv" class="field-input" readonly value="•••">
+              <button class="copy-btn" data-field="cvv" disabled title="CVV cannot be copied">
+                <span>N/A</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Export Controls -->
+      <section class="pba-section export-section">
+        <h2>Export Data</h2>
+
+        <!-- Field Selection -->
+        <div class="field-selection">
+          <p>Select fields to include in encrypted CSV export:</p>
+          <div class="checkbox-group">
+            <label><input type="checkbox" value="apt_unit"> Apartment/Unit</label>
+            <label><input type="checkbox" value="address_line_1" checked> Address Line 1</label>
+            <label><input type="checkbox" value="address_line_2"> Address Line 2</label>
+            <label><input type="checkbox" value="street"> Street</label>
+            <label><input type="checkbox" value="city" checked> City</label>
+            <label><input type="checkbox" value="state_province" checked> State/Province</label>
+            <label><input type="checkbox" value="country"> Country</label>
+            <label><input type="checkbox" value="postal_code" checked> Postal Code</label>
+            <label><input type="checkbox" value="card_number"> Card Number</label>
+            <label><input type="checkbox" value="expiry_date"> Expiry Date</label>
+          </div>
+        </div>
+
+        <!-- Password Input -->
+        <div class="password-group">
+          <label for="exportPassword">Encryption Password (min. 8 characters)</label>
+          <input type="password" id="exportPassword" placeholder="Enter strong password" minlength="8">
+          <p class="hint">🔒 This password will be required to decrypt the CSV file</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="button-group">
+          <button id="copyAllBtn" class="btn btn-primary">📋 Copy All Visible</button>
+          <button id="exportCSVBtn" class="btn btn-success">📥 Export Encrypted CSV</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="pba-footer">
+      <p>🔐 All data is encrypted before export. Your password is never stored.</p>
+    </footer>
+  </div>
+
+  <!-- Password Prompt Modal (for decryption) -->
+  <div id="decryptModal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Decrypt CSV File</h3>
+      <p>Enter the password used during encryption:</p>
+      <input type="password" id="decryptPassword" placeholder="Password">
+      <textarea id="decryptPayload" placeholder="Paste encrypted JSON payload" rows="6"></textarea>
+      <div class="modal-buttons">
+        <button id="decryptBtn" class="btn btn-primary">Decrypt</button>
+        <button id="cancelDecryptBtn" class="btn btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="pba-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build outputs
+dist/
+build/
+*.bundle.js
+
+# Testing
+coverage/
+.nyc_output/
+
+# Runtime data
+tmp/
+temp/
+
+# Security keys
+*.pem
+*.key
+secrets/
+
+# Backups
+*.bak
+*.backup
+
+# Development
+.env.development
+.env.test
