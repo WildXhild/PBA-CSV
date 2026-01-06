@@ -1,3 +1,58 @@
+#!/usr/bin/env node
+
+/**
+ * CLI Handler — enables commands like:
+ *   pba-csv encrypt <file.csv>
+ *   pba-csv --help
+ */
+const isCLI = require.main === module;
+
+if (isCLI) {
+  const args = process.argv.slice(2);
+
+  if (args.includes("--help")) {
+    console.log(`
+PBA-CSV CLI
+Usage:
+  pba-csv encrypt <file.csv>
+  pba-csv --help
+`);
+    process.exit(0);
+  }
+
+  // Handle: pba-csv encrypt <file.csv>
+  if (args[0] === "encrypt" && args[1]) {
+    const filePath = args[1];
+    console.log(`Encrypting file: ${filePath}`);
+
+    const fs = require('fs');
+    const encryption = require('../encryption/encryption'); // uses your encryption module
+
+    const readline = require('readline').createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+
+    readline.question('Enter password for encryption: ', async (password) => {
+      try {
+        const csvData = fs.readFileSync(filePath, 'utf-8');
+        
+        // Call your existing encryption function
+        const { payload, metadata } = await encryption.encryptCSVData(csvData, password);
+
+        console.log('\nEncrypted payload:\n', payload);
+        console.log('\nMetadata:\n', JSON.stringify(metadata, null, 2));
+      } catch (err) {
+        console.error('Encryption failed:', err.message || err);
+      } finally {
+        readline.close();
+      }
+    });
+
+    return; // stop server from launching
+  }
+}
+
 /**
  * Backend API Server - Payment Billing Address CSV
  * 
